@@ -35,7 +35,7 @@ module.exports = {
   },
   devServer: {
     host: 'localhost',
-    port: 8083,
+    port: 8080,
     https: false,
     open: true,
   },

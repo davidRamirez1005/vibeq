@@ -15,7 +15,7 @@
           <div class="logo-img" :class="{ 'logo-img-rtl': $rtl.isRTL }">
             <img
             src="../../../public/img/logoVibeq.png"
-              alt="logo empresa"
+              alt=""
             />
           </div>
         </a>
@@ -51,7 +51,7 @@ export default {
     },
     backgroundColor: {
       type: String,
-      default: "blue",
+      default: "vue",
     },
     activeColor: {
       type: String,
