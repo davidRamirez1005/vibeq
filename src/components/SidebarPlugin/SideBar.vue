@@ -12,7 +12,7 @@
           aria-label="sidebar mini logo"
           class="simple-text logo-mini"
         >
-          <div class="logo-img" :class="{ 'logo-img-rtl': $rtl.isRTL }">
+          <div class="" :class="{ 'logo-img-rtl': $rtl.isRTL }">
             <img
             src="../../../public/img/logoVibeq.png"
               alt="logo empresa"
