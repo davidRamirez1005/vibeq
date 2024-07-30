@@ -18,7 +18,7 @@
 <script setup>
 import { ref } from 'vue';
 import CheckboxInput from '../../components/Inputs/CheckboxInput.vue';
-import DrawerFiltro from '../../components/Drawers/DrawerFiltro.vue';
+import DrawerFiltro from '../Pedidos/DrawerFiltro.vue';
 
 const estados = ref([
     { label: 'Pendientes', color: 'yellow' },

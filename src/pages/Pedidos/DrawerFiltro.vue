@@ -21,8 +21,8 @@
                 </button>
                 <form class="tw-mb-6">
                     <div class="tw-mb-6">
-                        <label for="options" class="tw-block tw-mb-2 tw-text-sm tw-font-medium tw-text-gray-900 dark:tw-text-white">cliente</label>
-                        <select id="options" class="tw-bg-gray-50 tw-border tw-border-gray-300 tw-text-gray-900 tw-text-sm tw-rounded-lg focus:tw-ring-blue-500 focus:tw-border-blue-500 tw-block tw-w-full tw-p-2.5 dark:tw-bg-gray-700 dark:tw-border-gray-600 dark:tw-placeholder-gray-400 dark:tw-text-white dark:focus:tw-ring-blue-500 dark:focus:tw-border-blue-500" required>
+                        <label for="options" class="label-form">cliente</label>
+                        <select id="options" class="select-options" required>
                             <option value="" disabled selected>Seleccione una opción</option>
                             <option value="option1">Option 1</option>
                             <option value="option2">Option 2</option>
@@ -30,8 +30,8 @@
                         </select>
                     </div>
                     <div class="tw-mb-6">
-                        <label for="options" class="tw-block tw-mb-2 tw-text-sm tw-font-medium tw-text-gray-900 dark:tw-text-white">Producto</label>
-                        <select id="options" class="tw-bg-gray-50 tw-border tw-border-gray-300 tw-text-gray-900 tw-text-sm tw-rounded-lg focus:tw-ring-blue-500 focus:tw-border-blue-500 tw-block tw-w-full tw-p-2.5 dark:tw-bg-gray-700 dark:tw-border-gray-600 dark:tw-placeholder-gray-400 dark:tw-text-white dark:focus:tw-ring-blue-500 dark:focus:tw-border-blue-500" required>
+                        <label for="options" class="label-form">Producto</label>
+                        <select id="options" class="select-options" required>
                             <option value="" disabled selected>Seleccione una opción</option>
                             <option value="option1">Option 1</option>
                             <option value="option2">Option 2</option>
@@ -41,12 +41,12 @@
                     <hr>
                     <br>
                     <div class="tw-mb-6">
-                        <label for="start-date" class="tw-block tw-mb-2 tw-text-sm tw-font-medium tw-text-gray-900 dark:tw-text-white">Fecha inicio</label>
-                        <input type="date" id="start-date" class="tw-bg-gray-50 tw-border tw-border-gray-300 tw-text-gray-900 tw-text-sm tw-rounded-lg focus:tw-ring-blue-500 focus:tw-border-blue-500 tw-block tw-w-full tw-p-2.5 dark:tw-bg-gray-700 dark:tw-border-gray-600 dark:tw-placeholder-gray-400 dark:tw-text-white dark:focus:tw-ring-blue-500 dark:focus:tw-border-blue-500" required />
+                        <label for="start-date" class="label-form">Fecha inicio</label>
+                        <input type="date" id="start-date" class="date" required />
                     </div>
                     <div class="tw-mb-6">
-                        <label for="end-date" class="tw-block tw-mb-2 tw-text-sm tw-font-medium tw-text-gray-900 dark:tw-text-white">Fecha final</label>
-                        <input type="date" id="end-date" class="tw-bg-gray-50 tw-border tw-border-gray-300 tw-text-gray-900 tw-text-sm tw-rounded-lg focus:tw-ring-blue-500 focus:tw-border-blue-500 tw-block tw-w-full tw-p-2.5 dark:tw-bg-gray-700 dark:tw-border-gray-600 dark:tw-placeholder-gray-400 dark:tw-text-white dark:focus:tw-ring-blue-500 dark:focus:tw-border-blue-500" required />
+                        <label for="end-date" class="label-form">Fecha final</label>
+                        <input type="date" id="end-date" class="date" required />
                     </div>
                     <button type="submit" class="tw-text-white tw-bg-blue-700 hover:tw-bg-blue-800 tw-w-full focus:tw-ring-4 focus:tw-ring-blue-300 tw-font-medium tw-rounded-lg tw-text-sm tw-px-5 tw-py-2.5 tw-mb-2 dark:tw-bg-blue-600 dark:hover:tw-bg-blue-700 focus:tw-outline-none dark:focus:tw-ring-blue-800 tw-block">Buscar</button>
                 </form>

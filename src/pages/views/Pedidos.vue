@@ -1,13 +1,39 @@
 <template>
-    <div class="tw-grid tw-grid-cols-3 tw-gap-4">
-        <ProductCard v-for="order in orders" :key="order.id" :order="order" />
+    <div>
+        <div>
+            <br>
+            <div class="row">
+                <div class="col-1 boton-filtro">
+                    <DrawerFiltro />
+                </div>
+                <div class="col-11">
+                    <h1 class="">Estado del pedido</h1>
+                    <br>
+                    <CheckboxInput :estados="estados" />
+                </div>
+            </div>
+            <hr>
+        </div>
+        <div class="tw-grid tw-grid-cols-3 tw-gap-4">
+            <ProductCard v-for="order in orders" :key="order.id" :order="order" />
+        </div>
     </div>
 </template>
 
-<script>
+<script setup>
+import { ref } from 'vue';
 import ProductCard from "../Pedidos/ProductCard";
+import DrawerFiltro from "../Pedidos/DrawerFiltro";
+import CheckboxInput from '../../components/Inputs/CheckboxInput.vue';
 
-const orders = [
+const estados = ref([
+    { label: 'Pendientes', color: 'yellow' },
+    { label: 'En Proceso', color: 'blue' },
+    { label: 'Completados', color: 'green' },
+    { label: 'Rechazados', color: 'red' },
+]);
+
+const orders = ref([
     {
         "id": 351,
         "date": "05 Feb 2023, 08:28 PM",
@@ -74,18 +100,12 @@ const orders = [
         ],
         "status": "completed"
     }
-];
+]);
 
-export default {
-    components: {
-        ProductCard,
-    },
-    data() {
-        return {
-            orders: orders,
-        };
-    },
-};
 </script>
 
-<style scoped></style>
+<style scoped>
+.boton-filtro{
+    margin-top: 2rem;
+}
+</style>
