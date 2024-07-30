@@ -2,18 +2,21 @@
     <div class="tw-grid tw-gap-4 tw-grid-cols-1 sm:tw-grid-cols-2">
       <div class="tw-bg-[#27293D] tw-rounded-md tw-p-4">
         <div>
-          <base-input
-            label="Titulo del producto"
-            placeholder="Camiseta Nike"
-            v-model="productTitle"
-          ></base-input>
+          <label class="label-form">
+            Titulo del proyecto
+          </label>
+          <input
+              label="Titulo del producto"
+              placeholder="Camiseta Nike"
+              v-model="productTitle"
+            />
         </div>
         <div class="tw-bg-[#1E1E29] tw-flex tw-flex-col tw-items-center tw-justify-center tw-rounded-md tw-p-5 tw-mt-5 tw-gap-3">
           <div class="tw-flex tw-items-center tw-gap-2">
-            <button class="tw-bg-[#27293D] hover:tw-bg-pink-500 tw-rounded-md tw-text-white tw-outline-0 tw-transition-all tw-duration-500 p-2">
+            <button class="tw-bg-[#27293D] hover:tw-bg-gray-700 tw-rounded-md tw-text-white tw-outline-0 tw-transition-all tw-duration-500 p-2">
               Generar con IA
             </button>
-            <label for="fileInput" class="tw-text-[#405F7F] hover:tw-text-gray-400 tw-cursor-pointer tw-pt-[8px]">
+            <label for="fileInput" class="label-form tw-cursor-pointer tw-pt-[8px]">
               Select existing
             </label>
             <input type="file" id="fileInput" class="tw-hidden" @change="handleFileChange" multiple />
@@ -21,16 +24,24 @@
           <p class="tw-text-gray-500">Accepts images, videos, or 3D models</p>
         </div>
         <div class="tw-flex tw-gap-5 tw-pt-5">
-          <base-input
-            label="Precio"
-            placeholder="$ 0.00"
-            v-model="productPrice"
-          ></base-input>
-          <base-input
-            label="Precio comparación"
-            placeholder="$ 0.00"
-            v-model="productComparisonPrice"
-          ></base-input>
+          <div>
+            <label class="label-form">
+              Precio
+            </label>
+            <input
+              placeholder="$ 0.00"
+              v-model="productPrice"
+            />
+          </div>
+          <div>
+            <label class="label-form">
+              Precio comparación
+            </label>
+            <input
+              placeholder="$ 0.00"
+              v-model="productComparisonPrice"
+            />
+          </div>
         </div>
       </div>
       <div class="tw-bg-[#27293D] tw-rounded-md tw-p-4">
