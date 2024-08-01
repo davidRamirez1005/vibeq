@@ -1,6 +1,7 @@
 
 <script setup>
 import { ref } from 'vue';
+import MensajeDeTexto from "../SitioWeb/MensajeDeTexto.vue"
 
 
 const questions = [
@@ -64,9 +65,8 @@ function startForm() {
                 </div>
 
             </div>
-            <div class="md:tw-text-black md:tw-p-3">
-                <h2>Subsection</h2>
-                <p>This is a subsection.</p>
+            <div id="messages" class="md:tw-text-black md:tw-p-3">
+                <MensajeDeTexto></MensajeDeTexto>
             </div>
         </main>
     </section>
