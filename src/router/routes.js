@@ -14,6 +14,8 @@ const SitioWeb = () =>
   import(/* webpackChunkName: "common" */ "@/pages/views/SitioWeb.vue");
 const RegistrarProductos = () =>
   import(/* webpackChunkName: "common" */ "@/pages/views/RegistrarProductos.vue");
+const RegistrarServicios = () =>
+  import(/* webpackChunkName: "common" */ "@/pages/views/RegistrarServicios.vue");
 
 const routes = [];
 
@@ -47,6 +49,11 @@ routes.push({
       path: "registrar-productos",
       name: "registrar-productos",
       component: RegistrarProductos,
+    },
+    {
+      path: "registrar-servicios",
+      name: "registrar-servicios",
+      component: RegistrarServicios,
     },
   ],
 });
