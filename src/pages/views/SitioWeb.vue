@@ -5,28 +5,31 @@ import MensajeDeTexto from "../SitioWeb/MensajeDeTexto.vue"
 
 
 const questions = [
-    {pregunta: "¿Que comercializas?", opt: ["Productos", "Servicios"], current: true},
-    {pregunta: "¿Cuál es el nombre de tu negocio?", current: false},
-    {pregunta: "¿Tienes una ubicación física? Si es así, ¿cuál es la dirección?", current: false},
-    {pregunta: "¿Tienes perfiles en redes sociales? ¿Cuáles?", current: false},
-    {pregunta: "¿Prefieres algún estilo o paleta de colores en particular para tu sitio web?", current: false},
+    {pregunta: "¿Que comercializas?", opt: ["Productos", "Servicios"]},
+    {pregunta: "¿Cuál es el nombre de tu negocio?"},
+    {pregunta: "¿Tienes una ubicación física? Si es así, ¿cuál es la dirección?"},
+    {pregunta: "¿Tienes perfiles en redes sociales? ¿Cuáles?"},
+    {pregunta: "¿Prefieres algún estilo o paleta de colores en particular para tu sitio web?"},
 ]
-
-let currentQuestionIndex = ref(1)
+console.log(questions)
+let currentQuestionIndex = ref(0)
 
 let progressPercentage = ref(0)
 
 // Styles for current question
 let widthProgressBarChild = ref(`width: ${progressPercentage.value}%; height: 100%`)
-const leftBorder = ref("md:tw-border-l-[10px] tw-border-l-indigo-600")
+const leftBorder = "md:tw-w-full md:tw-h-20 md:tw-p-4 md:tw-border-l-[10px] tw-border-l-indigo-600"
 
-function startForm() {
-    currentQuestionIndex.value = 0
-    currentQuestion.value = questions[0].pregunta
-    widthProgressBarChild.value = `width: 0%; height: 100%`
-    leftBorder.value = "md:tw-border-l-[10px] tw-border-l-indigo-600"
-    progressPercentage.value = 0
+function nextQuestion () {
+    if (currentQuestionIndex.value < questions.length - 1) {
+        currentQuestionIndex.value++
+        progressPercentage.value+=20
+        widthProgressBarChild = ref(`width: ${progressPercentage.value}%; height: 100%`)
+    } else {
+        alert('Has completado el formulario')
+    }
 }
+
 
 </script>
 
@@ -46,24 +49,30 @@ function startForm() {
             <hr class="md:tw-h-1 tw-bg-orange-500 md:tw-border-none">
             <div id="listOfQuestions">
                 <ul class="md:tw-flex md:tw-flex-col md:tw-space-y-5 md:tw-mt-5">
-                    <li v-for="question in questions" class="md:tw-w-full md:tw-h-20  md:tw-p-4">{{ question.pregunta
-                    }}</li>
+                    <li v-for="(question, index) in questions" 
+                        :key="index"
+                        :class="[
+                            'md:tw-w-full md:tw-h-20 md:tw-p-4',
+                            index === currentQuestionIndex ? leftBorder : ''
+                        ]">
+                        {{ question.pregunta }}
+                    </li>
                 </ul>
             </div>
         </aside>
         <main class="md:tw-rounded-2xl">
-            <div class="tw-ps-[20px] lg:tw-px-20 md:tw-py-10 lg:tw-px-30  tw-bg-[#f5f5f5] md:tw-rounded-e-3xl">
-                <h1 class="md:tw-text-black md:tw-text-3xl"><span id="currentQuestion">{{ questions[currentQuestionIndex].pregunta }}</span></h1>
+            <div class="tw-relative tw-px-[20px] lg:tw-px-20 md:tw-py-10 lg:tw-px-30  tw-bg-[#f5f5f5] md:tw-rounded-e-3xl">
+                <h1 class="tw-text-black tw-text-2xl"><span id="currentQuestion">{{ questions[currentQuestionIndex].pregunta }}</span></h1>
                 <div v-if="questions[currentQuestionIndex].opt" id="currentAnswers" class="md:tw-flex tw-space-x-20  lg:tw-space-x-40 md:tw-h-full">
                     <div v-for="opt in questions[currentQuestionIndex].opt" class="md:tw-flex md:tw-space-x-2 md:tw-items-center">
                         <label for="products" class="md:tw-text-xl md:tw-m-0 md:tw-text-black">{{ opt }}</label>
                         <input type="radio" name="choice" id="products" class="md:tw-size-5 squared-radio">
                     </div>
                 </div>
-                <div v-else id="currentAnswers" class="tw-mt-10 md:tw-h-full">
+                <div v-else id="currentAnswers" class="tw-mt-2 md:tw-h-1/5">
                     <input type="text" placeholder="Ingresa tu respuesta aqui">
                 </div>
-
+                <button @click="nextQuestion" class="tw-absolute tw-right-8tw tw-bottom-10 lg:tw-right-20 lg:tw-bottom-10 ">Next question</button>
             </div>
             <div id="messages" class="md:tw-text-black md:tw-p-3">
                 <MensajeDeTexto></MensajeDeTexto>
