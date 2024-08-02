@@ -5,11 +5,12 @@ import MensajeDeTexto from "../SitioWeb/MensajeDeTexto.vue"
 
 
 const questions = [
-    {pregunta: "¿Que comercializas?", opt: ["Productos", "Servicios"]},
-    {pregunta: "¿Cuál es el nombre de tu negocio?"},
-    {pregunta: "¿Tienes una ubicación física? Si es así, ¿cuál es la dirección?"},
-    {pregunta: "¿Tienes perfiles en redes sociales? ¿Cuáles?"},
-    {pregunta: "¿Prefieres algún estilo o paleta de colores en particular para tu sitio web?"},
+    {pregunta: "¿Que comercializas?", opt: ["Productos", "Servicios"], icon: "fa-solid fa-tags tw-text-xl"},
+    {pregunta: "¿Cuál es el nombre de tu negocio?", icon: "fa-solid fa-briefcase tw-text-xl"},
+    {pregunta: "¿Tienes una ubicación física? Si es así, ¿cuál es la dirección?", icon: "fa-solid fa-tags tw-text-xl"},
+    {pregunta: "¿Tienes perfiles en redes sociales? ¿Cuáles?", icon: "fa-solid fa-tags tw-text-xl"},
+    {pregunta: "¿Prefieres algún estilo o paleta de colores en particular para tu sitio web?", icon: "fa-solid fa-tags tw-text-xl"},
+    {pregunta: "¿Tienes algun logo? Si es así, cargalo en el siguiente apartado", opt: ["Si", "No"], icon: "fa-solid fa-tags tw-text-xl"},
 ]
 console.log(questions)
 let currentQuestionIndex = ref(0)
@@ -17,16 +18,19 @@ let currentQuestionIndex = ref(0)
 let progressPercentage = ref(0)
 
 // Styles for current question
-let widthProgressBarChild = ref(`width: ${progressPercentage.value}%; height: 100%`)
-const leftBorder = "md:tw-w-full md:tw-h-20 md:tw-p-4 md:tw-border-l-[10px] tw-border-l-indigo-600"
+let widthProgressBarChild = ref(`width: ${progressPercentage.value}%; height: 100%;`)
+const leftBorder = "md:tw-w-full md:tw-h-20 md:tw-p-4 md:tw-border-l-[10px] tw-border-l-indigo-600 tw-content-center"
 
 function nextQuestion () {
     if (currentQuestionIndex.value < questions.length - 1) {
         currentQuestionIndex.value++
-        progressPercentage.value+=20
-        widthProgressBarChild = ref(`width: ${progressPercentage.value}%; height: 100%`)
+        progressPercentage.value+= Math.round(100/questions.length)
+        widthProgressBarChild.value = `width: ${progressPercentage.value}%; height: 100%; transition: 1.2s ease`
+        let input = document.querySelector('#inputTextAnswer')
+        input.value = ''
     } else {
-        alert('Has completado el formulario')
+        progressPercentage.value=100
+        widthProgressBarChild.value = `width: ${progressPercentage.value}%; height: 100%; transition: 1.2s ease`
     }
 }
 
@@ -47,16 +51,17 @@ function nextQuestion () {
                 </div>
             </div>
             <hr class="md:tw-h-1 tw-bg-orange-500 md:tw-border-none">
-            <div id="listOfQuestions">
-                <ul class="md:tw-flex md:tw-flex-col md:tw-space-y-5 md:tw-mt-5">
+            <div id="listOfQuestions" class="tw-h-[570px]">
+                <ul class="md:tw-flex md:tw-flex-col md:tw-space-y-5 md:tw-mt-5 tw-overflow-y-scroll tw-h-full ">
                     <li v-for="(question, index) in questions" 
                         :key="index"
                         :class="[
-                            'md:tw-w-full md:tw-h-20 md:tw-p-4',
+                            'md:tw-w-full md:tw-h-[70px] md:tw-p-4 tw-flex tw-space-x-3 tw-items-center',
                             index === currentQuestionIndex ? leftBorder : ''
                         ]">
-                        {{ question.pregunta }}
-                    </li>
+                        <i :class="question.icon"></i>
+                        <p>{{ question.pregunta }}</p>
+                        </li>
                 </ul>
             </div>
         </aside>
@@ -70,7 +75,7 @@ function nextQuestion () {
                     </div>
                 </div>
                 <div v-else id="currentAnswers" class="tw-mt-2 md:tw-h-1/5">
-                    <input type="text" placeholder="Ingresa tu respuesta aqui">
+                    <input id="inputTextAnswer" type="text" placeholder="Ingresa tu respuesta aqui">
                 </div>
                 <button @click="nextQuestion" class="tw-absolute tw-right-8tw tw-bottom-10 lg:tw-right-20 lg:tw-bottom-10 ">Next question</button>
             </div>
