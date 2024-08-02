@@ -9,6 +9,8 @@ import BlackDashboard from "./plugins/blackDashboard";
 import i18n from "./i18n";
 import "./registerServiceWorker";
 import "./assets/demo/styles.css";
+import '@fortawesome/fontawesome-free/css/all.css';
+import '@fortawesome/fontawesome-free/js/all.js';
 
 Vue.use(BlackDashboard);
 Vue.use(VueRouter);
