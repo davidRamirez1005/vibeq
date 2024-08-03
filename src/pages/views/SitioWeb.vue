@@ -2,6 +2,7 @@
 <script setup>
 import { ref } from 'vue';
 import MensajeDeTexto from "../SitioWeb/MensajeDeTexto.vue"
+import ChatUsuario from "../SitioWeb/ChatUsuario.vue"
 
 
 const questions = [
@@ -52,7 +53,7 @@ function nextQuestion () {
             </div>
             <hr class="md:tw-h-1 tw-bg-orange-500 md:tw-border-none">
             <div id="listOfQuestions" class="tw-h-[570px]">
-                <ul class="md:tw-flex md:tw-flex-col md:tw-space-y-5 md:tw-mt-5 tw-overflow-y-scroll tw-h-full ">
+                <ul class="md:tw-flex md:tw-flex-col md:tw-space-y-5 md:tw-mt-5 tw-overflow-y-scroll tw-h-full questions">
                     <li v-for="(question, index) in questions" 
                         :key="index"
                         :class="[
@@ -79,14 +80,43 @@ function nextQuestion () {
                 </div>
                 <button @click="nextQuestion" class="tw-absolute tw-right-8tw tw-bottom-10 lg:tw-right-20 lg:tw-bottom-10 ">Next question</button>
             </div>
-            <div id="messages" class="md:tw-text-black md:tw-p-3">
+            <div class="md:tw-text-black md:tw-p-3 tw-overflow-y: scroll messages">
                 <MensajeDeTexto></MensajeDeTexto>
+                <ChatUsuario></ChatUsuario>
+
+
             </div>
         </main>
     </section>
 </template>
 
 <style scoped>
+
+.questions {
+   
+    overflow-y: scroll;
+}
+
+.questions::-webkit-scrollbar {
+  width: 8px;
+}
+
+.questions::-webkit-scrollbar-track {
+  background: #cccc;
+  border-radius: 10px;
+}
+
+.questions::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 10px;
+  transition: background 0.3s ease-in-out;
+}
+
+.questions::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+
 .squared-radio {
     appearance: none;
     -webkit-appearance: none;
@@ -117,4 +147,15 @@ main {
     display: grid;
     grid-template-rows: 2fr 5fr;
 }
+
+.messages {
+    max-height: 510px;
+    overflow-y: scroll;
+}
+
+.messages::-webkit-scrollbar {
+  width: 8px;
+}
+
+
 </style>
