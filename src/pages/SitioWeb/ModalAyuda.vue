@@ -48,8 +48,7 @@
   const sendMessage = () => {
     if (message.value.trim()) {
       console.log('Mensaje enviado:', message.value);
-      // Aquí puedes agregar la lógica para procesar el mensaje
-      message.value = ''; // Limpiar el input después de enviar
+      message.value = '';
     }
   };
   
