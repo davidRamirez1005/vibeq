@@ -1,8 +1,13 @@
+
+<script setup>
+    defineProps(["message"])
+</script>
+
 <template>
     <div class="message__container">
       <div class="text__box">
         <div class="tw-max-h-50px tw-text-right">Usuario</div>
-        <div class="tw-h-auto tw-bg-gray-400 tw-p-2 content__box">¿Qué productos ofrecen?</div>
+        <div class="tw-h-auto tw-bg-gray-400 tw-p-2 content__box">{{ message }}</div>
       </div>
       <div class="fw-h-15 fw-w-10">
         <div class="tw-h-12 tw-w-12 tw-bg-gray-500 tw-rounded-full tw-overflow-hidden">

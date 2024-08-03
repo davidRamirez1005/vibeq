@@ -1,17 +1,16 @@
 <script setup>
 import { ref, nextTick } from 'vue';
-import MensajeDeTexto from "../SitioWeb/MensajeDeTexto.vue"
-import ChatUsuario from "../SitioWeb/ChatUsuario.vue"
 import ModalAyuda from "../SitioWeb/ModalAyuda.vue"
-
+import ChatBot from "../SitioWeb/ChatBot.vue";
+import ChatUsuario from "../SitioWeb/ChatUsuario.vue";
 
 const questions = [
-    {pregunta: "¿Que comercializas?", opt: ["Productos", "Servicios"], icon: "fa-solid fa-tags tw-text-xl"},
+    {pregunta: "¿Qué comercializas?", opt: ["Productos", "Servicios"], icon: "fa-solid fa-tags tw-text-xl"},
     {pregunta: "¿Cuál es el nombre de tu negocio?", icon: "fa-solid fa-briefcase tw-text-xl"},
     {pregunta: "¿Tienes una ubicación física? Si es así, ¿cuál es la dirección?", icon: "fa-solid fa-location-dot tw-text-xl"},
     {pregunta: "¿Tienes perfiles en redes sociales? ¿Cuáles?", icon: "fa-solid fa-icons tw-text-xl"},
-    {pregunta: "¿Que colores quieres para tu sitio web?", icon: "fa-solid fa-paint-roller tw-text-xl", colors: true},
-    {pregunta: "¿Tienes algun logo? Si es así, cargalo en el siguiente apartado", opt: ["Si", "No"], icon: "fa-solid fa-file-circle-question tw-text-xl"},
+    {pregunta: "¿Qué colores quieres para tu sitio web?", icon: "fa-solid fa-paint-roller tw-text-xl", colors: true},
+    {pregunta: "¿Tienes algún logo? Si es así, cárgalo en el siguiente apartado", opt: ["Sí", "No"], icon: "fa-solid fa-file-circle-question tw-text-xl"},
 ]
 
 let currentQuestionIndex = ref(0)
@@ -30,6 +29,9 @@ let colorPrimary = ref('#000000');
 let colorSecundary = ref('#000000');
 let colorTerciary = ref('#000000');
 let textAnswer = ref('');
+
+// Reactive variable for chat messages
+let chatMessages = ref([]); // Stores chat history
 
 function showNextQuestionButton() {
     buttonNextQuestionActive.value = true;
@@ -53,13 +55,10 @@ function collectResponse() {
     const question = questions[currentQuestionIndex.value];
 
     if (question.opt) {
-        // Use reactive variable to get selected radio option
         response = selectedOption.value;
     } else if (question.colors) {
-        // Use reactive variables to get selected colors
         response = [colorPrimary.value, colorSecundary.value, colorTerciary.value];
     } else {
-        // Use reactive variable to get text input value
         response = textAnswer.value;
     }
 
@@ -71,12 +70,24 @@ function collectResponse() {
 
 function nextQuestion() {
     collectResponse(); // Collect the current response before moving to the next question
-    
+
+    // Add current question and response to chat history
+    chatMessages.value.push({
+        sender: 'bot',
+        message: questions[currentQuestionIndex.value].pregunta
+    });
+
+    chatMessages.value.push({
+        sender: 'user',
+        message: selectedOption.value || textAnswer.value || `${colorPrimary.value}, ${colorSecundary.value}, ${colorTerciary.value}`
+    });
+
     if (currentQuestionIndex.value < questions.length - 1) {
         currentQuestionIndex.value++;
         progressPercentage.value += Math.round(100 / questions.length);
         widthProgressBarChild.value = `width: ${progressPercentage.value}%; height: 100%; transition: 1.2s ease`;
         textAnswer.value = '';
+        selectedOption.value = null;
         nextTick(() => {
             hideNextQuestionButton();
         });
@@ -84,8 +95,10 @@ function nextQuestion() {
         progressPercentage.value = 100;
         widthProgressBarChild.value = `width: ${progressPercentage.value}%; height: 100%; transition: 1.2s ease`;
         let upperSectionForm = document.querySelector('#upperSectionForm');
-        if (upperSectionForm) upperSectionForm.style.display = 'none';
-        
+
+        upperSectionForm.textContent="Formulario completado!"
+
+
         const responseObj = {
             form_completed: true,
             responses: responses.value
@@ -98,14 +111,12 @@ function nextQuestion() {
 
 <template>
     <section class="tw-grid-cols-[1fr_4fr] tw-grid tw-bg-white  md:tw-rounded-3xl">
-        <aside class=" md:tw-z-2 md:tw-rounded-s-2xl">
+        <aside class="md:tw-z-2 md:tw-rounded-s-2xl">
             <div class="md:tw-p-4 md:tw-text-white">
-                <p class=" md:tw-text-sm md:tw-font-bold md:tw-mb-5">Rellena el formulario para generar tu pagina web con IA
-                    en minutos!</p>
+                <p class="md:tw-text-sm md:tw-font-bold md:tw-mb-5">Rellena el formulario para generar tu página web con IA en minutos!</p>
                 <h2 class="md:tw-font-bold md:tw-text-xl">Progreso <span id="progressPercentage">{{ progressPercentage }}</span>%</h2>
                 <div id="progressBarBg" class="md:tw-w-full md:tw-rounded-md md:tw-h-5 tw-bg-slate-600">
-                    <div :style="widthProgressBarChild" id="progressBarChild" class="tw-bg-orange-500 md:tw-rounded-md">
-                    </div>
+                    <div :style="widthProgressBarChild" id="progressBarChild" class="tw-bg-orange-500 md:tw-rounded-md"></div>
                 </div>
             </div>
             <hr class="md:tw-h-1 tw-bg-orange-500 md:tw-border-none">
@@ -124,9 +135,11 @@ function nextQuestion() {
             </div>
         </aside>
         <main class="md:tw-rounded-2xl">
-            <div id="upperSectionForm" class="tw-relative tw-px-[20px] lg:tw-px-20 md:tw-py-10 lg:tw-px-30  tw-bg-[#f5f5f5] md:tw-rounded-e-3xl">
-                <h1 class="tw-text-black tw-text-2xl"><span id="currentQuestion">{{ questions[currentQuestionIndex].pregunta }}</span></h1>
-                <div v-if="questions[currentQuestionIndex].opt" id="currentAnswers" class="md:tw-flex tw-space-x-20  lg:tw-space-x-40 md:tw-h-full">
+            <div id="upperSectionForm" class="tw-relative tw-px-[20px] lg:tw-px-20 md:tw-py-10 lg:tw-px-30 tw-bg-[#f5f5f5] md:tw-rounded-e-3xl">
+                <h1 class="tw-text-black tw-text-2xl">
+                    <span id="currentQuestion">{{ questions[currentQuestionIndex].pregunta }}</span>
+                </h1>
+                <div v-if="questions[currentQuestionIndex].opt" id="currentAnswers" class="md:tw-flex tw-space-x-20 lg:tw-space-x-40 md:tw-h-full">
                     <div v-for="opt in questions[currentQuestionIndex].opt" class="md:tw-flex md:tw-space-x-2 md:tw-items-center">
                         <label :for="opt" class="md:tw-text-xl md:tw-m-0 md:tw-text-black">{{ opt }}</label>
                         <input 
@@ -165,15 +178,16 @@ function nextQuestion() {
                         id="inputTextAnswer" 
                         v-model="textAnswer"
                         type="text" 
-                        placeholder="Ingresa tu respuesta aqui">
+                        placeholder="Ingresa tu respuesta aquí">
                 </div>
-                <button v-if="buttonNextQuestionActive" id="nextQuestionButton" @click="nextQuestion" class="tw-absolute tw-right-8tw tw-bottom-10 lg:tw-right-20 lg:tw-bottom-10">
+                <button v-if="buttonNextQuestionActive" id="nextQuestionButton" @click="nextQuestion" class="tw-absolute tw-right-8 tw-bottom-10 lg:tw-right-20 lg:tw-bottom-10">
                     Next question
                 </button>
             </div>
-            <div class="md:tw-text-black md:tw-p-3 tw-overflow-y: scroll messages">
-                <MensajeDeTexto></MensajeDeTexto>
-                <ChatUsuario></ChatUsuario>
+            <div id="containerMessages" class="md:tw-text-black md:tw-p-3 tw-overflow-y-scroll messages">
+                <div v-for="(message, index) in chatMessages" :key="index">
+                    <component :is="message.sender === 'bot' ? ChatBot : ChatUsuario" :message="message.message" />
+                </div>
             </div>
             <div>
                 <div class="md:tw-flex md:tw-justify-end md:tw-p-4">
@@ -184,6 +198,7 @@ function nextQuestion() {
         </main>
     </section>
 </template>
+
 
 
 <style scoped>

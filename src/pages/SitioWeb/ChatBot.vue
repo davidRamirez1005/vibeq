@@ -1,6 +1,6 @@
 
-<script>
-
+<script setup>
+    defineProps(["message"])
 </script>
 
 <template>
@@ -16,7 +16,7 @@
 
         <div class="text__box">
             <div class=" tw-max-h-50px ">Bot</div>
-            <div class=" tw-h-auto tw-bg-indigo-300 tw-p-2 content__box">¿Que comercializas?</div>
+            <div class=" tw-h-auto tw-bg-indigo-300 tw-p-2 content__box">{{ message }}</div>
         </div>
     </div>
 
