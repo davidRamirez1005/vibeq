@@ -20,6 +20,14 @@ let widthProgressBarChild = ref(`width: ${progressPercentage.value}%; height: 10
 const leftBorder = "md:tw-w-full md:tw-h-20 md:tw-p-4 md:tw-border-l-[10px] tw-border-l-indigo-600 tw-content-center"
 
 let buttonNextQuestionActive = ref(false)
+let responses = ref([]) // Array to store responses
+
+// Reactive variables for form inputs
+let selectedOption = ref(null);
+let colorPrimary = ref('#000000');
+let colorSecundary = ref('#000000');
+let colorTerciary = ref('#000000');
+let textAnswer = ref('');
 
 function showNextQuestionButton() {
     buttonNextQuestionActive.value = true;
@@ -33,13 +41,35 @@ function hideNextQuestionButton() {
     buttonNextQuestionActive.value = false;
 }
 
+function collectResponse() {
+    let response;
+    const question = questions[currentQuestionIndex.value];
+
+    if (question.opt) {
+        // Use reactive variable to get selected radio option
+        response = selectedOption.value;
+    } else if (question.colors) {
+        // Use reactive variables to get selected colors
+        response = [colorPrimary.value, colorSecundary.value, colorTerciary.value];
+    } else {
+        // Use reactive variable to get text input value
+        response = textAnswer.value;
+    }
+
+    responses.value.push({
+        question: question.pregunta,
+        response: response
+    });
+}
+
 function nextQuestion() {
+    collectResponse(); // Collect the current response before moving to the next question
+    
     if (currentQuestionIndex.value < questions.length - 1) {
         currentQuestionIndex.value++;
         progressPercentage.value += Math.round(100 / questions.length);
         widthProgressBarChild.value = `width: ${progressPercentage.value}%; height: 100%; transition: 1.2s ease`;
-        let input = document.querySelector('#inputTextAnswer');
-        if (input) input.value = '';
+        textAnswer.value = '';
         nextTick(() => {
             hideNextQuestionButton();
         });
@@ -48,6 +78,13 @@ function nextQuestion() {
         widthProgressBarChild.value = `width: ${progressPercentage.value}%; height: 100%; transition: 1.2s ease`;
         let upperSectionForm = document.querySelector('#upperSectionForm');
         if (upperSectionForm) upperSectionForm.style.display = 'none';
+        
+        const responseObj = {
+            form_completed: true,
+            responses: responses.value
+        }; // Log responses when the form is completed
+
+        console.log(responseObj)
     }
 }
 </script>
@@ -84,17 +121,44 @@ function nextQuestion() {
                 <h1 class="tw-text-black tw-text-2xl"><span id="currentQuestion">{{ questions[currentQuestionIndex].pregunta }}</span></h1>
                 <div v-if="questions[currentQuestionIndex].opt" id="currentAnswers" class="md:tw-flex tw-space-x-20  lg:tw-space-x-40 md:tw-h-full">
                     <div v-for="opt in questions[currentQuestionIndex].opt" class="md:tw-flex md:tw-space-x-2 md:tw-items-center">
-                        <label for="products" class="md:tw-text-xl md:tw-m-0 md:tw-text-black">{{ opt }}</label>
-                        <input @click="showNextQuestionButton" type="radio" name="choice" id="products" class="md:tw-size-5 squared-radio">
+                        <label :for="opt" class="md:tw-text-xl md:tw-m-0 md:tw-text-black">{{ opt }}</label>
+                        <input 
+                            @click="showNextQuestionButton" 
+                            type="radio" 
+                            name="choice" 
+                            :id="opt" 
+                            :value="opt" 
+                            v-model="selectedOption"
+                            class="md:tw-size-5 squared-radio">
                     </div>
                 </div>
                 <div v-else-if="questions[currentQuestionIndex].colors" id="currentAnswers" class="tw-mt-2 md:tw-h-1/5 tw-flex tw-space-x-5">
-                    <input @input="handleInputChange" type="color" id="colorPrimary" value="#000000" class="tw-size-20 tw-bg-none tw-border-none tw-p-0">
-                    <input @input="handleInputChange" type="color" id="colorSecundary" value="#000000" class="tw-size-20 tw-bg-none tw-border-none tw-p-0">
-                    <input @input="handleInputChange" type="color" id="colorTerciary" value="#000000" class="tw-size-20 tw-bg-none tw-border-none tw-p-0">
+                    <input 
+                        @input="handleInputChange" 
+                        type="color" 
+                        id="colorPrimary" 
+                        v-model="colorPrimary"
+                        class="tw-size-20 tw-bg-none tw-border-none tw-p-0">
+                    <input 
+                        @input="handleInputChange" 
+                        type="color" 
+                        id="colorSecundary" 
+                        v-model="colorSecundary"
+                        class="tw-size-20 tw-bg-none tw-border-none tw-p-0">
+                    <input 
+                        @input="handleInputChange" 
+                        type="color" 
+                        id="colorTerciary" 
+                        v-model="colorTerciary"
+                        class="tw-size-20 tw-bg-none tw-border-none tw-p-0">
                 </div>
                 <div v-else id="currentAnswers" class="tw-mt-2 md:tw-h-1/5">
-                    <input @input="handleInputChange" id="inputTextAnswer" type="text" placeholder="Ingresa tu respuesta aqui">
+                    <input 
+                        @input="handleInputChange" 
+                        id="inputTextAnswer" 
+                        v-model="textAnswer"
+                        type="text" 
+                        placeholder="Ingresa tu respuesta aqui">
                 </div>
                 <button v-if="buttonNextQuestionActive" id="nextQuestionButton" @click="nextQuestion" class="tw-absolute tw-right-8tw tw-bottom-10 lg:tw-right-20 lg:tw-bottom-10">
                     Next question
@@ -103,8 +167,6 @@ function nextQuestion() {
             <div class="md:tw-text-black md:tw-p-3 tw-overflow-y: scroll messages">
                 <MensajeDeTexto></MensajeDeTexto>
                 <ChatUsuario></ChatUsuario>
-
-
             </div>
         </main>
     </section>
