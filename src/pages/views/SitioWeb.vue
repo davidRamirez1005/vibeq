@@ -2,6 +2,8 @@
 import { ref, nextTick } from 'vue';
 import MensajeDeTexto from "../SitioWeb/MensajeDeTexto.vue"
 import ChatUsuario from "../SitioWeb/ChatUsuario.vue"
+import ModalAyuda from "../SitioWeb/ModalAyuda.vue"
+
 
 const questions = [
     {pregunta: "¿Que comercializas?", opt: ["Productos", "Servicios"], icon: "fa-solid fa-tags tw-text-xl"},
@@ -36,6 +38,11 @@ function showNextQuestionButton() {
 function handleInputChange() {
     showNextQuestionButton();
 }
+const modalAyuda = ref(null);
+
+const openModal = () => {
+  modalAyuda.value.open();
+};
 
 function hideNextQuestionButton() {
     buttonNextQuestionActive.value = false;
@@ -167,6 +174,12 @@ function nextQuestion() {
             <div class="md:tw-text-black md:tw-p-3 tw-overflow-y: scroll messages">
                 <MensajeDeTexto></MensajeDeTexto>
                 <ChatUsuario></ChatUsuario>
+            </div>
+            <div>
+                <div class="md:tw-flex md:tw-justify-end md:tw-p-4">
+                <button @click="openModal" class="tw-text-orange-700 tw-py-2 tw-px-4">¿Necesitas ayuda?</button>
+                </div>
+                <ModalAyuda ref="modalAyuda"></ModalAyuda>
             </div>
         </main>
     </section>
