@@ -35,6 +35,11 @@
           :name="$t('sidebar.productos')"
           icon="tim-icons icon-single-02"
         />
+        <sidebar-link
+          to="/finanzas"
+          :name="$t('sidebar.finanzas')"
+          icon="tim-icons icon-single-02"
+        />
         <!-- Menú desplegable de Marketing -->
         <sidebar-dropdown :name="$t('sidebar.marketing')" icon="tim-icons icon-bulb-63">
           <sidebar-link
