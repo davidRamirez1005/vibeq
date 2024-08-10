@@ -113,6 +113,7 @@
                 <input type="number" v-model="otrosImpuestos" placeholder="$0.00" />
                 <span class="info-icon">ⓘ</span>
               </div>
+              <button class="add-item" @click="addOtroImpuesto">+</button>
             </div>
           </div>
         </section>
@@ -142,36 +143,36 @@
         <div class="effectiveness">
           <h3>% De efectividad del modelo financiero</h3>
           <div class="progress-bar">
-            <div class="progress" style="width: 80%"></div>
+            <div class="progress" :style="{ width: efectividad + '%' }"></div>
           </div>
-          <p>80% Completado</p>
+          <p>{{ efectividad }}% Completado</p>
         </div>
   
         <div class="growth">
           <h3>Crecimiento</h3>
           <div class="growth-item">
-            <span>Ventas</span>
-            <span>$5,000.00</span>
+            <span><i class="icon-sales"></i> Ventas</span>
+            <span>${{ ventas.toFixed(2) }}</span>
           </div>
           <div class="growth-item">
-            <span>Gastos</span>
-            <span>$593.00</span>
+            <span><i class="icon-expenses"></i> Gastos</span>
+            <span>${{ gastos.toFixed(2) }}</span>
           </div>
           <div class="growth-item">
-            <span>Utilidad</span>
-            <span>$3,030.98</span>
+            <span><i class="icon-profit"></i> Utilidad</span>
+            <span>${{ utilidad.toFixed(2) }}</span>
           </div>
         </div>
   
         <div class="highlighted-costs">
           <h3>Costos y Gastos Destacados</h3>
           <div class="cost-item">
-            <span>Pago de luz</span>
-            <span>$202.98</span>
+            <span><i class="icon-electricity"></i> Pago de luz</span>
+            <span>${{ pagoDeLuz.toFixed(2) }}</span>
           </div>
           <div class="cost-item">
-            <span>Trabajador Jose</span>
-            <span>$3,030.98</span>
+            <span><i class="icon-employee"></i> Trabajador Jose</span>
+            <span>${{ trabajadorJose.toFixed(2) }}</span>
           </div>
         </div>
       </div>
@@ -198,8 +199,20 @@
         otrosImpuestos: null,
         costoProduccion: null,
         costoServicio: null,
+        efectividad: 80,
+        ventas: 5000.00,
+        gastos: 593.00,
+        utilidad: 3030.98,
+        pagoDeLuz: 202.98,
+        trabajadorJose: 3030.98,
       }
     },
+    methods: {
+      addOtroImpuesto() {
+        // Logic to add new tax item
+        console.log('Adding new tax item');
+      }
+    }
   }
   </script>
   
@@ -295,5 +308,22 @@
     display: flex;
     justify-content: space-between;
     margin-bottom: 10px;
+  }
+  
+  .add-item {
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    margin-top: 5px;
+  }
+  
+  .icon-sales, .icon-expenses, .icon-profit, .icon-electricity, .icon-employee {
+    /* Add styles for your icons */
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    margin-right: 5px;
+    background-color: #ccc; /* Placeholder color */
   }
   </style>
