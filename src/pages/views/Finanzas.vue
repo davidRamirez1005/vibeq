@@ -303,6 +303,7 @@
   .expense-item {
     display: flex;
     flex-direction: column;
+    color: #333;
   }
   
   .input-wrapper {
@@ -391,4 +392,38 @@
   .otros-impuestos .add-item {
     align-self: flex-start;
   }
-  </style>
+
+  .finanzas-content h1 {
+    font-size: 4em; 
+    font-weight: bold; 
+}
+
+.finanzas-container h2 {
+    font-size: 2.0em; 
+    font-weight: bold; 
+}
+
+.sidebar-right .effectiveness h3 {
+    font-size: 1.8em; 
+    font-weight: bold; 
+    color: black; 
+}
+
+.growth h3,
+.highlighted-costs h3 {
+    font-size: 1.5em; 
+    font-weight: bold; 
+    color: black; 
+}
+.growth .growth-item span {
+    display: block; 
+    font-size: 1em; 
+}
+
+.highlighted-costs .growth-item span {
+    display: block; 
+    font-size: 1em; 
+}
+
+
+</style>
