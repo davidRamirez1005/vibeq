@@ -161,7 +161,7 @@
         <div class="growth">
           <h3>Crecimiento</h3>
           <div class="growth-item">
-            <span><i class="icon-sales"></i> Ventas</span>
+            <span><i class="icon-sales"><img src="https://cdn-icons-png.flaticon.com/128/6067/6067132.png" alt="logo"></i> Ventas</span>
             <span>${{ ventas.toFixed(2) }}</span>
           </div>
           <div class="growth-item">
@@ -289,7 +289,7 @@
   }
   
   .progress {
-    background-color: #4caf50;
+    background-color: #38627a;
     height: 100%;
   }
   
@@ -319,8 +319,13 @@
     border-radius: 4px;
     font-size: 14px;
     background-color: #f8f9fa;
+    color: #666666;
   }
   
+  input::placeholder {
+    color: #888888; 
+}
+
   .info-icon {
     position: absolute;
     right: 10px;
