@@ -119,7 +119,8 @@
               <button @click="confirmarNuevoImpuesto">Confirmar</button>
               <button @click="cancelarNuevoImpuesto">Cancelar</button>
             </div>
-            <div class="expense-item" v-else>
+            <div class="expense-item otros-impuestos" v-else>
+              <label>Otros</label>
               <button class="add-item" @click="iniciarNuevoImpuesto">+</button>
             </div>
           </div>
@@ -375,5 +376,19 @@
   
   .new-tax button:last-child {
     background-color: #f44336;
+  }
+  
+  .otros-impuestos {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .otros-impuestos label {
+    margin-bottom: 5px;
+  }
+  
+  .otros-impuestos .add-item {
+    align-self: flex-start;
   }
   </style>
