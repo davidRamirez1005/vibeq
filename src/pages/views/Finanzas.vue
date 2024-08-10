@@ -142,10 +142,12 @@
       <div class="sidebar-right">
         <div class="effectiveness">
           <h3>% De efectividad del modelo financiero</h3>
+          <p class="subtitle">Entre más llenes los datos de tus finanzas será más exacto tus cuentas y serás claro con tus cuentas</p>
+          <h2> 80% completado</h2>
           <div class="progress-bar">
             <div class="progress" :style="{ width: efectividad + '%' }"></div>
           </div>
-          <p>{{ efectividad }}% Completado</p>
+          <p class="percentage">{{ efectividad }}% Completado</p>
         </div>
   
         <div class="growth">
@@ -326,4 +328,19 @@
     margin-right: 5px;
     background-color: #ccc; /* Placeholder color */
   }
+
+  .effectiveness, .growth, .highlighted-costs {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+}
+
+.subtitle {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 10px;
+}
+
   </style>
