@@ -165,11 +165,11 @@
             <span>${{ ventas.toFixed(2) }}</span>
           </div>
           <div class="growth-item">
-            <span><i class="icon-expenses"></i> Gastos</span>
+            <span><i class="icon-expenses"><img src="https://cdn-icons-png.flaticon.com/128/6067/6067132.png" alt="logo"></i> Gastos</span>
             <span>${{ gastos.toFixed(2) }}</span>
           </div>
           <div class="growth-item">
-            <span><i class="icon-profit"></i> Utilidad</span>
+            <span><i class="icon-profit"><img src="https://cdn-icons-png.flaticon.com/128/6067/6067132.png" alt="logo"></i> Utilidad</span>
             <span>${{ utilidad.toFixed(2) }}</span>
           </div>
         </div>
@@ -177,11 +177,11 @@
         <div class="highlighted-costs">
           <h3>Costos y Gastos Destacados</h3>
           <div class="cost-item">
-            <span><i class="icon-electricity"></i> Pago de luz</span>
+            <span><i class="icon-electricity"><img src="https://cdn-icons-png.flaticon.com/128/1611/1611154.png" alt="logo"></i> Pago de luz</span>
             <span>${{ pagoDeLuz.toFixed(2) }}</span>
           </div>
           <div class="cost-item">
-            <span><i class="icon-employee"></i> Trabajador Jose</span>
+            <span><i class="icon-employee"><img src="https://cdn-icons-png.flaticon.com/128/1611/1611154.png" alt="logo"></i> Trabajador Jose</span>
             <span>${{ trabajadorJose.toFixed(2) }}</span>
           </div>
         </div>
@@ -337,6 +337,11 @@
     display: flex;
     justify-content: space-between;
     margin-bottom: 10px;
+  }
+
+  .growth-item img, .cost-item img{
+    background-color: #fff;
+    border-radius: 0%;
   }
   
   .add-item {
