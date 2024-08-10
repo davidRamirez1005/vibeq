@@ -107,13 +107,20 @@
                 <span class="info-icon">ⓘ</span>
               </div>
             </div>
-            <div class="expense-item">
-              <label>Otros</label>
+            <div v-for="(item, index) in otrosImpuestos" :key="index" class="expense-item">
+              <label>{{ item.nombre }}</label>
               <div class="input-wrapper">
-                <input type="number" v-model="otrosImpuestos" placeholder="$0.00" />
+                <input type="number" v-model="item.valor" placeholder="$0.00" />
                 <span class="info-icon">ⓘ</span>
               </div>
-              <button class="add-item" @click="addOtroImpuesto">+</button>
+            </div>
+            <div class="expense-item new-tax" v-if="mostrarNuevoImpuesto">
+              <input type="text" v-model="nuevoImpuestoNombre" placeholder="Nombre del impuesto" @keyup.enter="confirmarNuevoImpuesto" />
+              <button @click="confirmarNuevoImpuesto">Confirmar</button>
+              <button @click="cancelarNuevoImpuesto">Cancelar</button>
+            </div>
+            <div class="expense-item" v-else>
+              <button class="add-item" @click="iniciarNuevoImpuesto">+</button>
             </div>
           </div>
         </section>
@@ -198,7 +205,7 @@
         interesesBancarios: null,
         impuestoRenta: null,
         iva: null,
-        otrosImpuestos: null,
+        otrosImpuestos: [],
         costoProduccion: null,
         costoServicio: null,
         efectividad: 80,
@@ -207,12 +214,25 @@
         utilidad: 3030.98,
         pagoDeLuz: 202.98,
         trabajadorJose: 3030.98,
+        mostrarNuevoImpuesto: false,
+        nuevoImpuestoNombre: '',
       }
     },
     methods: {
-      addOtroImpuesto() {
-        // Logic to add new tax item
-        console.log('Adding new tax item');
+      iniciarNuevoImpuesto() {
+        this.mostrarNuevoImpuesto = true;
+        this.nuevoImpuestoNombre = '';
+      },
+      confirmarNuevoImpuesto() {
+        if (this.nuevoImpuestoNombre.trim()) {
+          this.otrosImpuestos.push({ nombre: this.nuevoImpuestoNombre.trim(), valor: null });
+          this.mostrarNuevoImpuesto = false;
+          this.nuevoImpuestoNombre = '';
+        }
+      },
+      cancelarNuevoImpuesto() {
+        this.mostrarNuevoImpuesto = false;
+        this.nuevoImpuestoNombre = '';
       }
     }
   }
@@ -321,26 +341,39 @@
   }
   
   .icon-sales, .icon-expenses, .icon-profit, .icon-electricity, .icon-employee {
-    /* Add styles for your icons */
     display: inline-block;
     width: 20px;
     height: 20px;
     margin-right: 5px;
-    background-color: #ccc; /* Placeholder color */
+    background-color: #ccc;
   }
-
-  .effectiveness, .growth, .highlighted-costs {
-  background-color: white;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  margin-bottom: 20px;
-}
-
-.subtitle {
-  font-size: 14px;
-  color: #666;
-  margin-bottom: 10px;
-}
-
+  
+  .subtitle {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 10px;
+  }
+  
+  .new-tax {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .new-tax input {
+    flex-grow: 1;
+  }
+  
+  .new-tax button {
+    padding: 5px 10px;
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .new-tax button:last-child {
+    background-color: #f44336;
+  }
   </style>
