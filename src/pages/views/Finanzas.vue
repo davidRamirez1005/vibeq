@@ -8,16 +8,6 @@
           pedirla a nuestro asistente de IA
         </p>
   
-        <div class="effectiveness">
-          <div class="effectiveness-text">
-            <span>% De efectividad del modelo financiero</span>
-            <span>80% Completado</span>
-          </div>
-          <div class="progress-bar">
-            <div class="progress" style="width: 80%"></div>
-          </div>
-        </div>
-  
         <section>
           <h2>Gastos Operativos</h2>
           <div class="expenses-grid">
@@ -149,6 +139,14 @@
       </div>
   
       <div class="sidebar-right">
+        <div class="effectiveness">
+          <h3>% De efectividad del modelo financiero</h3>
+          <div class="progress-bar">
+            <div class="progress" style="width: 80%"></div>
+          </div>
+          <p>80% Completado</p>
+        </div>
+  
         <div class="growth">
           <h3>Crecimiento</h3>
           <div class="growth-item">
@@ -212,18 +210,20 @@
     padding: 20px;
     font-family: Arial, sans-serif;
   }
-
-  .finanzas-content h1 {
-            font-size: 4em;
-            font-weight: bold;
-        }
   
   .finanzas-content {
-    flex: 1;
+    flex: 3;
     background-color: white;
     padding: 30px;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-right: 20px;
+  }
+  
+  .sidebar-right {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
   }
   
   h1, h2, h3 {
@@ -236,14 +236,12 @@
     color: #666;
   }
   
-  .effectiveness {
-    margin-bottom: 30px;
-  }
-  
-  .effectiveness-text {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 10px;
+  .effectiveness, .growth, .highlighted-costs {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
   }
   
   .progress-bar {
@@ -251,6 +249,7 @@
     height: 10px;
     border-radius: 5px;
     overflow: hidden;
+    margin: 10px 0;
   }
   
   .progress {
@@ -290,19 +289,6 @@
     right: 10px;
     color: #999;
     cursor: pointer;
-  }
-  
-  .sidebar-right {
-    width: 250px;
-    margin-left: 20px;
-  }
-  
-  .growth, .highlighted-costs {
-    background-color: white;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    margin-bottom: 20px;
   }
   
   .growth-item, .cost-item {
